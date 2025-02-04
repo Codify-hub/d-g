@@ -1,74 +1,111 @@
 import 'package:flutter/material.dart';
 
+import 'near_tab.dart';
+
 void main() {
-  runApp(const MainApp());
+  runApp(MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HeartScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainScreen(),
     );
   }
 }
 
-class HeartScreen extends StatelessWidget {
-  const HeartScreen({super.key});
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    NearbyGaragesPage(),
+    TipsScreen(),
+    ShoppingScreen(),
+    ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomPaint(
-              size: Size(150, 200),
-              painter: HeartPainter(),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Design your dreams with Flutter... \nfrom Manoj',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.pink,
-              ),
-            ),
-          ],
-        ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        type : BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map_rounded),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lightbulb),
+            label: 'Tips',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Shopping',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_2),
+            label: 'Profile',
+          ),
+        ],
+
+        elevation: 0,
+
       ),
     );
   }
 }
 
-class HeartPainter extends CustomPainter {
+class HomeScreen extends StatelessWidget {
   @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = Colors.red
-      ..style = PaintingStyle.fill;
-
-    Path path = Path();
-    path.moveTo(size.width / 2, size.height / 4);
-    path.cubicTo(
-      size.width * 0.8, 0, size.width, size.height * 0.5, 
-      size.width / 2, size.height
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Home Screen'),
     );
-    path.cubicTo(
-      0, size.height * 0.5, size.width * 0.2, 0, size.width / 2, size.height / 4
-    );
-
-    canvas.drawPath(path, paint);
   }
+}
 
+class TipsScreen extends StatelessWidget {
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Tips Screen'),
+    );
+  }
+}
+
+class ShoppingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Shopping Screen'),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Profile Screen'),
+    );
   }
 }
