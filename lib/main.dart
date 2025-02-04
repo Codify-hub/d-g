@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garage_d/tip_tab.dart';
 
 import 'near_tab.dart';
 
@@ -26,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     NearbyGaragesPage(),
-    TipsScreen(),
+    TipsAndTricksPage(),
     ShoppingScreen(),
     ProfileScreen(),
   ];
